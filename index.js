@@ -58,18 +58,30 @@ console.log(years);
 
 /* Task 4: Implement a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */ 
 
-function getWinners(cb) {
-    const winners = [];
-    for(let i = 0; i < cb.length; i++){
-        if(["Home Team Goals"] > ["Away Team Goals"]){
-            winners.push(cb[i]["Home Team Name"]);
-        }if(["Away Team Goals"] > ["Home Team Goals"]){
-            winners.push(cb[i]["Away Team Name"])
-        }
+// function getWinners(cb) {
+//    const winners = [];
+//    for(let i = 0; i < cb.length; i++){
+//        if(["Home Team Goals"] > ["Away Team Goals"]){
+//            winners.push(cb[i]["Home Team Name"]);
+//        }if(["Away Team Goals"] > ["Home Team Goals"]){
+//            winners.push(cb[i]["Away Team Name"])
+//        }
+//    }
+//    console.log(winners);
+//};
+// getWinners(getFinals);
+
+const winners = [];
+
+const getWinners = getFinals.filter(function(item){
+    if(["Home Team Goals"] > ["Away Team Goals"]){
+        winners.push(item["Home Team Name"]);
+    }if(["Away Team Goals"] > ["Home Team Goals"]){
+        winners.push(item["Home Team Name"])
     }
-    console.log(winners);
-};
-getWinners(getFinals);
+});
+
+console.log(winners);
 
 /* Task 5: Implement a higher-order function called `getWinnersByYear` that accepts the following parameters and returns a set of strings "In {year}, {country} won the world cup!" 
 
@@ -79,21 +91,33 @@ Parameters:
  */
 
 function getWinnersByYear(cb1, cb2) {
-    
-    return `In ${cb1},  ${cb2} won the world cup!`;
+    for(let i = 0; i < cb1.length; i++ && i < cb2.length){
+    console.log(`In ${cb1[i]}, ${cb2[i]}, won the world cup!`);
+}
 };
 
-console.log(getWinnersByYear(winners, years));
+getWinnersByYear(years, winners);
 
 /* Task 6: Write a function called `getAverageGoals` that accepts a parameter `data` and returns the the average number of home team goals and away team goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
-function getAverageGoals() {
+//function getAverageGoals() {
 
     
 
-};
+//};
 
-getAverageGoals();
+//getAverageGoals();
+
+const getAverageGoals = fifaData.reduce(function(acc, item){
+    return acc + item["Home Team Goals"];
+}, 0);
+
+const getAverageGoalsAway = fifaData.reduce(function(acc, item){
+    return acc + item["Away Team Goals"];
+}, 0);
+
+console.log(getAverageGoals);
+console.log(getAverageGoalsAway);
 
 /// STRETCH 🥅 //
 
